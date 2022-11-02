@@ -45,4 +45,4 @@ In nearest future :
 	Ability to create custom chat rooms
 	User credentials encoding 
   
-  ![Screenshot](screenshot.png)
+  <img src="screenshots\validatores_1.png" width="350" alt="accessibility text">
