@@ -1,0 +1,197 @@
+{% include "header.html" %}
+
+<body>
+
+  <!--  title -->
+  <img class="background-image" src="{{url_for('static', filename='images/background.jpeg')}}">
+  <div class="title">
+    <div class="logo">
+      <h1 class="logo-icon icon-1"><i class="bi bi-tree"></i></h1>
+      <h1 class="logo-icon icon-2"><i class="bi bi-tree"></i></h1>
+      <h1 class="jambotron">Forrest Chat</h1>
+      <h1 class="logo-icon icon-3"><i class="bi bi-tree"></i></h1>
+      <h1 class="logo-icon icon-4"><i class="bi bi-tree"></i></h1>
+    </div>
+  </div>
+  <!--main messanger-->
+  <div class="container mh-100 main-messenger">
+    <div class="row messenger-row">
+      <div id="userbar" class="col-lg-2 userbar">
+      </div>
+      <div class="col-lg-8 message_holder">
+        <div id="messages" class="scrollabletextbox overflow-auto">
+          {% for i in message_history:%}
+          <!--jinja generate messages from database -->
+          {%if i['user'] == logged_user:%}
+          <div class="message my-message container">
+            <div class="row">
+              <div class="message-user col-10">
+                <p>{{i['user']}} : </p>
+              </div>
+              <div class="message-icon col-2">
+                <i class="bi bi-chat"></i>
+              </div>
+            </div>
+            <div class="message-block row">
+              <div class="col-12">
+                <p>
+                  {{i['message']}}
+                </p>
+              </div>
+            </div>
+            <div class="message-date row">
+              <div class="col-12">
+                <p>
+                  {{i['time']}}
+                </p>
+              </div>
+            </div>
+          </div>
+          {%else:%}
+          <div class="message other-message container">
+            <div class="row">
+
+              <div class="message-icon col-2">
+                <i class="bi bi-chat"></i>
+              </div>
+              <div class="message-user col-10">
+                <p>{{i['user']}} : </p>
+              </div>
+            </div>
+            <div class="message-block row">
+              <div class="col-12">
+                <p>
+                  {{i['message']}}
+                </p>
+              </div>
+            </div>
+            <div class="message-date row">
+              <div class="col-12">
+                <p>
+                  {{i['time']}}
+                </p>
+              </div>
+            </div>
+          </div>
+          {%endif%}
+          {%endfor%}
+        </div>
+
+
+        <div class="input-group mb-3 input-panel">
+          <input id="myMessage" type="text" name="message" class="form-control message-input" placeholder="Messages" aria-label="Recipient's username" aria-describedby="basic-addon2">
+          <div class="input-group-append">
+            <button id="sendbutton" class="btn btn-secondary" type="button"><i class="bi bi-send"></i> SEND</button>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-2 session-navbar">
+        <h1>Place for open sessions</h1>
+      </div>
+    </div>
+  </div>
+  <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+  <script type="text/javascript" src="//cdn.socket.io/4.4.1/socket.io.min.js"></script>
+  <script type="text/javascript" charset="utf-8">
+    $(document).ready(function() {
+      var objDiv = document.getElementById("messages"); // var needed to scroll messages window
+
+      var socket = io('http://127.0.0.1:5000/'); //connection to socket io
+
+      socket.on('connect', function() { // behavior on connect event
+        socket.send(msg = 'User-has_connected');
+        objDiv.scrollTop = objDiv.scrollHeight;
+      });
+
+      socket.on('list_of_active_users', function(active_user_list) { // behavior to create list of logged users
+        document.getElementById('userbar').replaceChildren();
+        $("#userbar").append("<H3 class='userbar-title'>Now online:</H3>"); // triggered by login or disconnect user
+        for (let i = 0; i < active_user_list.length; i++) {
+          $("#userbar").append("<p class='active-user'><i class='bi bi-plus-square-dotted'></i> " + active_user_list[i] + "</p>");
+        }
+
+      })
+      socket.on("message", function(msg) { // handles messages on client site
+        var logged = document.title.replace(" Flask_Chat_App", "");
+        if (logged == msg['user']) { //style changing, depends on if message was send by you or other user
+          $("#messages").append(`<div class="message my-message container">
+                        <div class="row">
+                        <div class="message-user col-10">
+                            <p>${msg['user']} : </p>
+                        </div>
+                        <div class="message-icon col-2">
+                             <i class="bi bi-chat"></i>
+                        </div>
+                    </div>
+                    <div class="message-block row">
+                        <div class="col-12">
+                        <p>
+                        ${msg['message']}
+                        </p>
+                        </div>
+                    </div>
+                    <div class="message-date row">
+                        <div class="col-12">
+                        <p>
+                        ${msg['time']}
+                        </p>
+                        </div>
+                    </div>
+                </div>`)
+        } else {
+          $("#messages").append(`<div class="message other-message container">
+                    <div class="row">
+                        <div class="message-icon col-2">
+                             <i class="bi bi-chat"></i>
+                        </div>
+                         <div class="message-user col-10">
+                            <p>${msg['user']} : </p>
+                        </div>
+                    </div>
+                    <div class="message-block row">
+                        <div class="col-12">
+                        <p>
+                        ${msg['message']}
+                        </p>
+                        </div>
+                    </div>
+                    <div class="message-date row">
+                        <div class="col-12">
+                        <p>
+                        ${msg['time']}
+                        </p>
+                        </div>
+                    </div>
+                </div>`);
+        }
+
+        objDiv.scrollTop = objDiv.scrollHeight;
+        // console.log('message recived');
+      });
+
+      $("#sendbutton").on("click", function() { // button functionality
+        socket.send(msg = $("#myMessage").val());
+        $("#myMessage").val('');
+      });
+      // adding functionality of "enter" key in input field
+      // Get the input field
+      var input = document.getElementById("myMessage");
+
+      // Execute a function when the user presses a key on the keyboard
+      input.addEventListener("keypress", function(event) {
+        // If the user presses the "Enter" key on the keyboard
+        if (event.key === "Enter") {
+          // Cancel the default action, if needed
+          event.preventDefault();
+          // Trigger the button element with a click
+          document.getElementById("sendbutton").click();
+        }
+      });
+    });
+  </script>
+
+</body>
+
+</html>
+

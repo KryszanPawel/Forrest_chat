@@ -1,0 +1,141 @@
+body {}
+
+.background-image {
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: -10;
+  opacity: 0.7;
+  overflow: hidden;
+  width: 100%;
+}
+
+/*title section*/
+.title {
+  width: 20%;
+  margin: 0 auto -30px auto;
+  text-align: center;
+  font-family: "Ubuntu";
+  position: relative;
+  top: -25px;
+  transform: skew(-25deg, -12deg) scale(1.5, 0.8);
+}
+
+.title.jambotron {}
+
+.logo-icon {
+  display: inline-block;
+}
+
+.icon-1 {
+  transform: rotate(-45deg) translateX(-18px) scale(0.8);
+}
+
+.icon-2 {
+  transform: rotate(45deg) translate(15px, 15px) scale(0.8);
+}
+
+.icon-3 {
+  transform: rotate(-135deg) translate(15px, 15px) scale(0.8);
+}
+
+.icon-4 {
+  transform: rotate(-225deg) translateX(-18px) scale(0.8);
+}
+
+/* active column*/
+.userbar {
+  width: 10%;
+}
+
+/* message column */
+.main-messenger {
+  width: 100%;
+  background-color: rgb(255, 255, 255, 0.4);
+  border: solid 1px;
+  border-radius: 20px;
+  max-width: 1550px;
+  width: 75%;
+}
+
+.messenger-row {
+  padding: 10px 10px 0 10px;
+}
+
+.scrollabletextbox {
+  padding: 20px;
+  overflow: auto;
+  border: solid 2px;
+  border-radius: 5px;
+  height: 400px;
+}
+
+.input-panel {
+  border: solid 2px;
+  border-radius: 5px;
+  padding: 5px 25px;
+  text-align: center;
+  margin: 0.5rem 0 0 0;
+}
+
+.message {
+  color: #3C2317;
+  padding: 5px 10px;
+  width: 65%;
+  text-align: center;
+  border: solid 1px;
+  border-radius: 5px;
+  word-break: break-word;
+}
+
+.message p {
+  margin: 0;
+}
+
+.message-block {
+  color: black;
+}
+
+.message-user {
+  font-size: 0.9rem;
+}
+
+.message-date {
+  text-align: right;
+  font-size: 0.7rem;
+}
+
+.my-message {
+  margin: 8px 0 8px auto;
+  background-color: #C7D36F;
+}
+
+.my-message .message-icon {
+  transform: scaleX(-1);
+  margin: 0 0 0 auto;
+}
+
+.my-message .message-user {
+  text-align: left;
+}
+
+.other-message {
+  margin: 8px auto 8px 0;
+  background-color: #E0DECA;
+}
+
+.other-message .message-icon {
+  margin: 0 auto 0 0;
+}
+
+.other-message .message-user {
+  text-align: right;
+}
+
+.other-message .message-date {
+  text-align: left;
+}
+
+.session-navbar {
+  width: 10%;
+}
