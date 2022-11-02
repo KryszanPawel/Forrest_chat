@@ -1,4 +1,4 @@
-<h2>Forrest app:</h2> is a chat room application. 
+<h2>Forrest Chat:</h2> is a chat room application. 
 After login successfully, a user has access to chat room website. 
 Main functionality is to exchange messages between logged users in real time.
 
