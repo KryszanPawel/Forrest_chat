@@ -1,4 +1,4 @@
-Forrest app is a chat room application. 
+<h2>Forrest app:</h2> is a chat room application. 
 After login successfully, a user has access to chat room website. 
 Main functionality is to exchange messages between logged users in real time.
 
@@ -6,7 +6,7 @@ Main functionality is to exchange messages between logged users in real time.
 <img src="screenshots\main_site_design.png" width="600" alt="login validators">
 
 
-25.10.2022
+25.10.2022:
 
 Main functionality has been achieved by using Flask_Socket_IO library.
 
@@ -21,11 +21,11 @@ Message window is always scrolled down when new message arrives.
  
 
 
-26.10.2022
+26.10.2022:
 
 Added some CSS styling.
 
-27.10.2022
+27.10.2022:
 
 Custom validator checking if user is already logged into the application.
 
@@ -37,7 +37,7 @@ CSS styling.
 Application testing revealed that user is not able to send messages using "ENTER" key.
 (Functionality to "ENTER" key in the chat has been added)
 
-2.11.2022
+2.11.2022:
 
 CSS styling on login side
 
