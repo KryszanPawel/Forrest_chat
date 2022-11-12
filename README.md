@@ -54,6 +54,8 @@ User passwords has been encrypted by wergzeug.security.generate_password_hash() 
 
 <img src="screenshots\database_1.png" width="600" alt="login validators">
 
+Created additional script (user_manipulation.py) to add and delete users from database.
+
 
 Planned functionalities:
 
@@ -62,5 +64,6 @@ In nearest future :
 	Private messages.
 	Styling of login site
 	Ability to create custom chat rooms
+	Administrators ability to create users inside application
   
  
