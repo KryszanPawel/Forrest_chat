@@ -48,6 +48,12 @@ Login validators work correctly.
 Testing revealed live message functionality failures. Messages weren't updated in real time on the client side
 (Functionality fixed: bug in updating script)
 
+12.11.2022
+
+User passwords has been encrypted by wergzeug.security.generate_password_hash() and password validation has been updated to use check_password_hash()
+
+<img src="screenshots\database_1.png" width="600" alt="login validators">
+
 
 Planned functionalities:
 
@@ -56,6 +62,5 @@ In nearest future :
 	Private messages.
 	Styling of login site
 	Ability to create custom chat rooms
-	User credentials encoding 
   
  
