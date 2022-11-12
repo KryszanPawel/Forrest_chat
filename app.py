@@ -9,6 +9,7 @@ from flask_socketio import SocketIO, emit, send
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
 import datetime
+from werkzeug.security import check_password_hash
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'vnkdjnfjknfl1232#'
@@ -63,8 +64,6 @@ class LoginForm(FlaskForm):
     submit = SubmitField('Submit')
 
 
-#
-
 
 @socketio.on("disconnect")
 def user_disconnected():
@@ -98,7 +97,7 @@ def login():
     form = LoginForm()
     if form.validate_on_submit():
         user = User.query.filter_by(username=form.username.data).first()
-        if user and user.password == form.password.data:
+        if user and check_password_hash(user.password, form.password.data):
             login_user(user)
             return redirect(url_for('session', user_name=user.username))
     return render_template("login.html", form=form)
